@@ -1,27 +1,33 @@
 import framebuffer, window,
        sdl2 as sdl
 
-const
-  physDeltaTime = 1.0 / 60.0
-  slowestFrame = 1.0 / 15.0
-
 var
-  deltaTime, accumulator: float64
+  initProc*: proc()
+  updateProc*: proc(dt: float64)
+  drawProc*: proc()
+  shutdownProc*: proc()
 
-proc frag() =
+proc frag*() =
+  var deltaTime, accumulator = 0.0'f64
+  
+  let
+    physDeltaTime = 1.0 / 60.0
+    slowestFrame = 1.0 / 15.0
+
   if not window.init(960, 540, "frag"):
     return
 
   framebuffer.init()
 
+  initProc()
+
   var 
-    lastFrameTime = sdl.getPerformanceCounter()
+    lastFrameTime = float64(sdl.getPerformanceCounter())
     running = true
-    e: sdl.Event
   
   while running:
-    var currentFrameTime = sdl.getPerformanceCounter()
-    deltaTime = float64(currentFrameTime - lastFrameTime) / float64(sdl.getPerformanceCounter())
+    var currentFrameTime = float64(sdl.getPerformanceCounter())
+    deltaTime = float64(currentFrameTime - lastFrameTime) / float64(sdl.getPerformanceFrequency())
     lastFrameTime = currentFrameTime
 
     if deltaTime > slowestFrame:
@@ -29,13 +35,18 @@ proc frag() =
 
     accumulator += deltaTime
     while accumulator >= physDeltaTime:
-      while sdl.pollEvent(e):
-        case e.kind
+      var event = sdl.defaultEvent
+      while sdl.pollEvent(event):
+        case event.kind
         of sdl.QuitEvent:
           running = false
         else:
           discard
     
-    accumulator -= physDeltaTime
-
-frag()
+      updateProc(physDeltaTime)
+    
+      accumulator -= physDeltaTime
+  
+    drawProc()
+  
+  shutdownProc()
