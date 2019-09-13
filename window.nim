@@ -72,7 +72,17 @@ proc init*(width, height: int; title: string): bool =
     echo &"Failed to retrieve driver specific info from SDL window:\n {sdl.getError()}"
     return result
 
+  var bgfxInit: bgfx_init_t
+  bgfx_init_ctor(addr bgfxInit)
+  if not bgfx_init(addr bgfxInit):
+    echo "Failed initializing BGFX"
+    return result
+
   display.width = width
   display.height = height
 
   result = true
+
+proc destroy*() =
+  bgfx_shutdown()
+  display.windowPtr.destroyWindow()

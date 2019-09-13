@@ -36,5 +36,5 @@ proc newFramebuffer*(width, height: int): Framebuffer =
 
   result.fbh = bgfx_create_frame_buffer_from_handles(2, addr result.fbTextureHandles[0], true)
 
-
-
+proc destroy*() =
+  discard

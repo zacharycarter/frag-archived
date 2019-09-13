@@ -1,14 +1,18 @@
+import scene
+
+var s: Scene
+
 proc init*() =
-  echo "initialized"
+  s = newScene()
 
 proc update*(dt: float64) =
-  echo "updating"
+  discard
 
 proc draw*() =
-  echo "drawing"
+  discard
 
 proc shutdown*() =
-  echo "shutting down"
+  discard
 
 proc keyPressed*(key: int) =
   discard

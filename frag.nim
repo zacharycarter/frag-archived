@@ -16,7 +16,7 @@ proc frag*() =
 
   if not window.init(960, 540, "frag"):
     return
-
+    
   framebuffer.init()
 
   initProc()
@@ -49,4 +49,7 @@ proc frag*() =
   
     drawProc()
   
+  window.destroy()
+  framebuffer.destroy()
+
   shutdownProc()

@@ -1,4 +1,5 @@
-import math
+import math,
+       framebuffer
 
 const
   maxPointLights = 500
@@ -10,17 +11,22 @@ const
   maxModels = 500
 
 type
-  SceneFlag = enum
+  SceneFlag* = enum
     sfSSAO
     sfDeferred
+    sfCount
   
-  SceneFlags = set[SceneFlag]
+  SceneFlags* = set[SceneFlag]
 
-  Scene = ref object
+  Scene* = ref object
     ssao: bool
     deferred: bool
+    framebuffer: Framebuffer
 
-proc newScene*(flags: SceneFlags): Scene =
+proc newScene*(flags: SceneFlags = {}): Scene =
   result = new Scene
 
   result.framebuffer = newFramebuffer(0, 0)
+
+proc destroy*(scene: Scene) =
+  discard
