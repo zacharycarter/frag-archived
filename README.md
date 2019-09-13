@@ -2,7 +2,7 @@
 
 ## Supported Platforms
 
-It is written in a cross-platform manner using ![c++](https://img.shields.io/badge/std-c++14-blue.svg).
+Windows | MSVC2017+ is the primary platform and compiler for frag. Eventually further platform & compiler support will be added.
 
 ![compilers](https://img.shields.io/badge/compilers--ff69b4.svg)      | ![windows](https://img.shields.io/badge/platform-windows-blue.svg) | ![linux](https://img.shields.io/badge/platform-linux-blue.svg)
 ---------------| --------|--------
