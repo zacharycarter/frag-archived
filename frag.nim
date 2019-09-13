@@ -1,6 +1,6 @@
 import framebuffer
 
-proc zengine() =
+proc frag() =
   framebuffer.init()
 
-zengine()
+frag()
