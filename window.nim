@@ -3,7 +3,7 @@ import strformat,
 
 type
   Window = object
-    windowPtr: sdl.WindowPtr
+    windowPtr*: sdl.WindowPtr
     width: int
     height: int
 
@@ -26,7 +26,7 @@ when defined(windows):
     SysWMInfoKindObj* = object
       win*: SysWMMsgWinObj
 
-var display: Window
+var display*: Window
 
 proc linkSDL2BGFX(): bool =
   var pd: bgfx_platform_data_t
