@@ -1,0 +1,2 @@
+type
+  Texture* = object
