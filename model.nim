@@ -1,2 +1,2 @@
 type
-  Model* = object
+  Model* = ref object
