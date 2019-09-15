@@ -5,7 +5,7 @@ import os, tables,
 const fragDataFile = "data.frag"
 
 var
-  initProc*: proc()
+  initProc*: proc(width, height: int)
   updateProc*: proc(dt: float64)
   drawProc*: proc()
   shutdownProc*: proc()
@@ -30,7 +30,7 @@ proc frag*() =
 
   framebuffer.init()
 
-  initProc()
+  initProc(width, height)
 
   var 
     lastFrameTime = float64(sdl.getPerformanceCounter())

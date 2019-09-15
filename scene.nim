@@ -1,5 +1,6 @@
 import math,
-       framebuffer
+       framebuffer,
+       glm
 
 const
   maxPointLights = 500
@@ -22,6 +23,13 @@ type
     ssao: bool
     deferred: bool
     framebuffer: Framebuffer
+    gravity: Vec3[float32]
+
+proc update*(scene: Scene; deltaTime: float32) =
+  discard
+  
+proc setGravity*(scene: Scene; gravity: Vec3[float32]) =
+  scene.gravity = gravity
 
 proc newScene*(flags: SceneFlags = {}): Scene =
   result = new Scene

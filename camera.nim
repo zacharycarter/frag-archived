@@ -1,4 +1,5 @@
-import model,
+import math,
+       model,
        glm
 
 type
@@ -13,7 +14,17 @@ type
     viewModel: Model
     matrices: CameraMatricies
 
-proc newFpsCamera*(x, y, z, sensitivity, fov: float32): FpsCamera =
+proc update*(cam: FpsCamera) =
+  if not cam.update:
+    return
+
+proc resize*(cam: FpsCamera; width, height: int) =
+  if cam.width != width or cam.height != height:
+    cam.matrices.projection = perspective(degToRad(cam.fov), float32(width) / float32(height), 0.01'f32, 1000.0'f32)
+    cam.width = width
+    cam.height = height
+
+proc newFpsCamera*(x, y, z, sensitivity, fov: float32; width, height: int): FpsCamera =
   result = new FpsCamera
 
   result.position.x = x
@@ -43,4 +54,4 @@ proc newFpsCamera*(x, y, z, sensitivity, fov: float32): FpsCamera =
   result.matrices.view = mat4(1.0'f32)
   result.matrices.projection = mat4(1.0'f32)
 
-  echo repr result
+  result.resize(width, height)
