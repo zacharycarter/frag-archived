@@ -71,8 +71,13 @@ proc `bind`*(fb: Framebuffer) =
   bgfx_set_view_rect(0, 0, 0, uint16(fb.width), uint16(fb.height))
   bgfx_set_view_clear(0, BGFX_CLEAR_COLOR or BGFX_CLEAR_DEPTH, 0x000000ff, 1.0, 0)
   bgfx_set_state(BGFX_STATE_DEPTH_TEST_LESS or BGFX_STATE_CULL_CCW, 0)
-  
 
+proc draw*(fb: Framebuffer; x, y, w, h: int) =
+  bgfx_set_view_rect(1, uint16(x), uint16(y), uint16(w), uint16(h))
+  bgfx_set_view_frame_buffer(1, fb.fbh)
+
+  bgfx_set_texture(0, uniform(fboProgramHandle, BGFX_UNIFORM_TYPE_SAMPLER, 1, "s_texColor"), fb.fbTextureHandles[0], high(uint32))
+  
 
 proc destroy*() =
   discard

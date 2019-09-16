@@ -1,5 +1,23 @@
-import os,
-      bgfxdotnim, sdl2 as sdl
+import os, tables,
+       bgfxdotnim, sdl2 as sdl
+
+var uniforms: Table[uint16, Table[string, bgfx_uniform_handle_t]]
+
+proc createUniform(kind: bgfx_uniform_type_t; num: int; name: string): bgfx_uniform_handle_t =
+  result = bgfx_create_uniform(name, kind, uint16(num))
+
+proc uniform*(ph: bgfx_program_handle_t; kind: bgfx_uniform_type_t; num: int; name: string): bgfx_uniform_handle_t =
+  if uniforms.contains(ph.idx):
+    if uniforms[ph.idx].contains(name):
+      return uniforms[ph.idx][name]
+    else:
+      result = createUniform(kind, num, name)
+      uniforms[ph.idx].add(name, result)
+      return result
+  else:
+    uniforms.add(ph.idx, initTable[string, bgfx_uniform_handle_t]())
+    result = bgfx_create_uniform(name, kind, uint16(num))
+    uniforms[ph.idx].add(name, result)
 
 proc loadShader(name: string): bgfx_shader_handle_t =
   var

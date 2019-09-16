@@ -3,8 +3,8 @@ import math,
        glm
 
 type
-  CameraMatricies = object
-    view, projection, inverseView: Mat4[float32]
+  CameraMatrices* = object
+    view*, projection*, inverseView*: Mat4[float32]
 
   FpsCamera* = ref object
     position, front, up: Vec3[float32]
@@ -12,7 +12,7 @@ type
     width, height: int
     update: bool
     viewModel: Model
-    matrices: CameraMatricies
+    matrices*: CameraMatrices
 
 proc update*(cam: FpsCamera) =
   if not cam.update:

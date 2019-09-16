@@ -16,7 +16,7 @@ proc update*(dt: float64) =
   c.update()
 
 proc draw*() =
-  discard
+  s.draw(0, 0, 0, 0, c.matrices)
 
 proc shutdown*() =
   discard
