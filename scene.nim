@@ -43,7 +43,7 @@ proc renderForward(s: Scene; viewX, viewY, viewWidth, viewHeight: int; matrices:
 
   bgfx_set_view_transform(0, addr matrices.view[0], addr matrices.projection[0])
 
-  s.framebuffer.draw(viewX, (vh - viewY - height), vw, vh)
+  s.framebuffer.draw(vw, vh)
 
 proc draw*(s: Scene; viewX, viewY, viewWidth, viewHeight: int; matrices: var CameraMatrices) =
   s.renderForward(viewX, viewY, viewWidth, viewHeight, matrices)

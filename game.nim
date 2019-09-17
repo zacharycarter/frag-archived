@@ -1,15 +1,18 @@
-import camera, scene,
+import camera, iqm, model, scene,
        glm
 
 var 
   s: Scene
   c: FpsCamera
+  level: Model
 
 proc init*(width, height: int) =
   s = newScene()
   s.setGravity(vec3(0.0'f32, -0.1'f32, 0.0'f32))
 
   c = newFpsCamera(0.0'f32, 0.0'f32, 0.0'f32, 0.1'f32, 70.0'f32, width, height)
+
+  level = iqm.loadModelIQM(s, "data/level.iqm", {ilKeepVertices})
 
 proc update*(dt: float64) =
   s.update(dt)
